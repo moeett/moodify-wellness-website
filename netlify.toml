@@ -1,0 +1,11 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/contact-success"
+  to = "/success.html"
+  status = 200
+
+# Form handling
+[forms]
+  contact = "/success.html"

@@ -1,7 +1,17 @@
 [build]
   publish = "."
 
-# Ensure success.html is accessible
+# Ensure HTML files are accessible without extension
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
 [[redirects]]
   from = "/success"
   to = "/success.html"

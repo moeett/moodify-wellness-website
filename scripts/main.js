@@ -138,35 +138,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Contact form handling with Formspree
+    // Contact form handling with mailto
     const contactForm = document.querySelector('#contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            const submitButton = this.querySelector('button[type="submit"]');
-            const formData = new FormData(this);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const message = formData.get('message');
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
 
             // Basic validation
             if (!name || !email || !message) {
-                e.preventDefault();
                 showNotification('Please fill in all required fields', 'error');
                 return;
             }
 
             if (!isValidEmail(email)) {
-                e.preventDefault();
                 showNotification('Please enter a valid email address', 'error');
                 return;
             }
 
-            // Show loading state
-            submitButton.textContent = 'Sending...';
-            submitButton.disabled = true;
-            showNotification('Sending your message...', 'info');
+            // Create mailto link
+            const subjectText = subject ? `${subject} - Contact from ${name}` : `Contact from ${name}`;
+            const bodyText = `Name: ${name}\nEmail: ${email}\nSubject: ${subject || 'General Inquiry'}\n\nMessage:\n${message}`;
 
-            // Let Formspree handle the submission and redirect
+            const mailtoLink = `mailto:mohamed-sahbi@moodify-wellness.com?subject=${encodeURIComponent(subjectText)}&body=${encodeURIComponent(bodyText)}`;
+
+            // Open email client
+            window.location.href = mailtoLink;
+
+            showNotification('Opening your email client...', 'success');
         });
     }
 

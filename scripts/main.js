@@ -138,33 +138,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form validation for contact page (if exists) - TEMPORARILY DISABLED
-    // const contactForm = document.querySelector('#contact-form');
-    // if (contactForm) {
-    //     contactForm.addEventListener('submit', function(e) {
-    //         const formData = new FormData(this);
-    //         const name = formData.get('name');
-    //         const email = formData.get('email');
-    //         const message = formData.get('message');
+    // Contact form handling with Formspree
+    const contactForm = document.querySelector('#contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            const submitButton = this.querySelector('button[type="submit"]');
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
 
-    //         // Basic validation
-    //         if (!name || !email || !message) {
-    //             e.preventDefault();
-    //             showNotification('Please fill in all fields', 'error');
-    //             return;
-    //         }
+            // Basic validation
+            if (!name || !email || !message) {
+                e.preventDefault();
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
 
-    //         if (!isValidEmail(email)) {
-    //             e.preventDefault();
-    //             showNotification('Please enter a valid email address', 'error');
-    //             return;
-    //         }
+            if (!isValidEmail(email)) {
+                e.preventDefault();
+                showNotification('Please enter a valid email address', 'error');
+                return;
+            }
 
-    //         // Show sending message but don't prevent default - let Netlify handle it
-    //         showNotification('Sending your message...', 'info');
-    //         console.log('Form submitted to Netlify');
-    //     });
-    // }
+            // Show loading state
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+            showNotification('Sending your message...', 'info');
+
+            // Let Formspree handle the submission and redirect
+        });
+    }
 
     // Utility functions
     function isValidEmail(email) {

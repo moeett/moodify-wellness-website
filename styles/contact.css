@@ -361,6 +361,17 @@
     justify-content: center;
 }
 
+/* Hide the hero background on success page */
+body.success-page .contact-hero .hero-background {
+    display: none;
+}
+
+body.success-page .contact-hero {
+    background: var(--background-light);
+    min-height: auto;
+    padding: 3rem 0;
+}
+
 .success-content {
     display: grid;
     grid-template-columns: 2fr 1fr;

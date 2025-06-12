@@ -1,3 +1,7 @@
+# Force canonical domain - redirect all traffic to main domain
+https://stirring-lebkuchen-fafc8e.netlify.app/* https://moodify-wellness.com/:splat 301!
+
+# Page redirects
 /contact /contact.html 200
 /privacy /privacy.html 200
 /success /success.html 200

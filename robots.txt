@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://moodify-wellness.com/sitemap.xml
+
+# Block access to admin/private areas (if any)
+Disallow: /admin/
+Disallow: /.netlify/
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /

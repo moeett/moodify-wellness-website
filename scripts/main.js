@@ -142,33 +142,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.querySelector('#contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
             const formData = new FormData(this);
             const name = formData.get('name');
             const email = formData.get('email');
             const message = formData.get('message');
-            
+
             // Basic validation
             if (!name || !email || !message) {
+                e.preventDefault();
                 showNotification('Please fill in all fields', 'error');
                 return;
             }
-            
+
             if (!isValidEmail(email)) {
+                e.preventDefault();
                 showNotification('Please enter a valid email address', 'error');
                 return;
             }
-            
-            // Create mailto link with form data
-            const subject = formData.get('subject') || 'Contact Form Submission';
-            const mailtoLink = `mailto:mohamed-sahbi@moodify-wellness.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
 
-            // Open email client
-            window.location.href = mailtoLink;
-
-            showNotification('Thank you for your message! Your email client should open now.', 'success');
-            this.reset();
+            // Let Netlify handle the form submission
+            showNotification('Sending your message...', 'info');
         });
     }
 

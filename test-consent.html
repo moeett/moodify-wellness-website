@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Consent Banner - Moodify Wellness</title>
+    
+    <!-- Termly Consent Management Platform -->
+    <script type="text/javascript" src="https://app.termly.io/embed.min.js" data-auto-block="on" data-website-uuid="c2c54806-ade4-463f-9d4a-793abfd8aee1"></script>
+    <!-- End Termly CMP -->
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007cba;
+            background: #e7f3ff;
+        }
+        button {
+            background: #007cba;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #005a87;
+        }
+        .preferences-link {
+            color: #007cba;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .preferences-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🍪 Consent Banner Test Page</h1>
+        
+        <div class="status" id="status">
+            <strong>Status:</strong> Checking Termly integration...
+        </div>
+        
+        <h2>Test Instructions:</h2>
+        <ol>
+            <li><strong>First Visit:</strong> You should see a consent banner appear</li>
+            <li><strong>Accept/Decline:</strong> Make your choice on the banner</li>
+            <li><strong>Preferences Link:</strong> Click the link below to test preference center</li>
+            <li><strong>Clear Cookies:</strong> Use the button below to reset and test again</li>
+        </ol>
+        
+        <h2>Test Controls:</h2>
+        <button onclick="clearConsent()">Clear Consent Data</button>
+        <button onclick="checkConsentStatus()">Check Consent Status</button>
+        <button onclick="location.reload()">Reload Page</button>
+        
+        <p>
+            <a href="#" class="termly-display-preferences preferences-link">🔧 Open Consent Preferences</a>
+        </p>
+        
+        <h2>Console Output:</h2>
+        <div id="console-output" style="background: #f0f0f0; padding: 15px; border-radius: 5px; font-family: monospace; min-height: 100px; white-space: pre-wrap;"></div>
+        
+        <h2>Expected Behavior:</h2>
+        <ul>
+            <li>✅ Consent banner appears on first visit</li>
+            <li>✅ Banner disappears after making choice</li>
+            <li>✅ Preferences link opens consent center</li>
+            <li>✅ Choices are remembered across page reloads</li>
+            <li>✅ No JavaScript errors in console</li>
+        </ul>
+    </div>
+
+    <script>
+        // Console logging
+        const consoleOutput = document.getElementById('console-output');
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        function addToConsole(message, type = 'log') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'warn' ? '⚠️' : '📝';
+            consoleOutput.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsole(args.join(' '), 'log');
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsole(args.join(' '), 'error');
+        };
+        
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToConsole(args.join(' '), 'warn');
+        };
+        
+        // Test functions
+        function clearConsent() {
+            // Clear Termly-related localStorage and cookies
+            Object.keys(localStorage).forEach(key => {
+                if (key.includes('termly') || key.includes('consent')) {
+                    localStorage.removeItem(key);
+                    console.log('Cleared localStorage:', key);
+                }
+            });
+            
+            // Clear cookies
+            document.cookie.split(";").forEach(function(c) { 
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+            });
+            
+            console.log('Consent data cleared. Reload page to see banner again.');
+            updateStatus('Consent data cleared. Reload page to test banner.');
+        }
+        
+        function checkConsentStatus() {
+            console.log('=== Consent Status Check ===');
+            console.log('LocalStorage items:');
+            Object.keys(localStorage).forEach(key => {
+                if (key.includes('termly') || key.includes('consent')) {
+                    console.log(`  ${key}: ${localStorage.getItem(key)}`);
+                }
+            });
+            
+            console.log('Cookies:');
+            document.cookie.split(';').forEach(cookie => {
+                const [name, value] = cookie.trim().split('=');
+                if (name.includes('termly') || name.includes('consent')) {
+                    console.log(`  ${name}: ${value}`);
+                }
+            });
+            
+            // Check if Termly object exists
+            if (typeof window.termly !== 'undefined') {
+                console.log('Termly object found:', window.termly);
+            } else {
+                console.log('Termly object not found');
+            }
+        }
+        
+        function updateStatus(message) {
+            document.getElementById('status').innerHTML = `<strong>Status:</strong> ${message}`;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Test page loaded');
+            console.log('Termly UUID: c2c54806-ade4-463f-9d4a-793abfd8aee1');
+            
+            // Check if Termly script loaded
+            setTimeout(() => {
+                if (typeof window.termly !== 'undefined') {
+                    console.log('✅ Termly script loaded successfully');
+                    updateStatus('Termly script loaded. Checking for consent banner...');
+                } else {
+                    console.log('❌ Termly script not loaded');
+                    updateStatus('⚠️ Termly script not detected. Check network connection.');
+                }
+                
+                checkConsentStatus();
+            }, 2000);
+        });
+        
+        // Listen for Termly events
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type && event.data.type.includes('termly')) {
+                console.log('Termly event:', event.data);
+            }
+        });
+    </script>
+</body>
+</html>

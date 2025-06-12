@@ -1,0 +1,31 @@
+# Icons Directory
+
+This directory is for storing icon assets for the Moodify Wellness website.
+
+## Recommended Icons to Add:
+
+### App Icons
+- `app-icon-192.png` - App icon 192x192
+- `app-icon-512.png` - App icon 512x512
+- `favicon-16x16.png` - Favicon 16x16
+- `favicon-32x32.png` - Favicon 32x32
+
+### Feature Icons (SVG preferred)
+- `heart.svg` - Love/care icon
+- `users.svg` - Community icon
+- `chart.svg` - Analytics/tracking icon
+- `shield.svg` - Safety/security icon
+- `message.svg` - Communication icon
+- `star.svg` - Quality/rating icon
+
+### Social Icons
+- `download.svg` - Download icon
+- `external-link.svg` - External link icon
+- `check.svg` - Checkmark icon
+- `arrow-right.svg` - Arrow icon
+
+## Icon Guidelines:
+- Use SVG format when possible for scalability
+- Maintain consistent style and stroke width
+- Use the website's color palette
+- Ensure icons are accessible with proper alt text

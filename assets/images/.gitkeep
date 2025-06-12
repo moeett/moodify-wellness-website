@@ -1,0 +1,36 @@
+# Images Directory
+
+This directory is for storing image assets for the Moodify Wellness website.
+
+## Recommended Images to Add:
+
+### App Screenshots
+- `app-home-screen.png` - Home screen of the Moodify app
+- `app-mood-tracking.png` - Mood tracking interface
+- `app-social-feed.png` - Social feed screenshot
+- `app-crisis-resources.png` - Crisis resources screen
+
+### Hero Images
+- `hero-background.jpg` - Main hero background image
+- `phone-mockup.png` - Phone mockup for hero section
+
+### Feature Icons
+- `feature-social.svg` - Social features icon
+- `feature-tracking.svg` - Mood tracking icon
+- `feature-crisis.svg` - Crisis resources icon
+- `feature-community.svg` - Community features icon
+
+### Testimonial Images
+- `testimonial-1.jpg` - User testimonial photo
+- `testimonial-2.jpg` - Provider testimonial photo
+- `testimonial-3.jpg` - User testimonial photo
+
+### General
+- `logo.svg` - Moodify Wellness logo
+- `favicon.ico` - Website favicon
+
+## Image Optimization Tips:
+- Use WebP format for better compression
+- Optimize images for web (compress file sizes)
+- Use appropriate dimensions (don't use oversized images)
+- Include alt text for accessibility

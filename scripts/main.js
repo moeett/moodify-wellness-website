@@ -160,8 +160,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Let Netlify handle the form submission
+            // Show sending message but don't prevent default - let Netlify handle it
             showNotification('Sending your message...', 'info');
+            console.log('Form submitted to Netlify');
         });
     }
 
